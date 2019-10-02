@@ -46,4 +46,31 @@ public class Legion {
         }
         return pName;
     }
+    public void equalComprobation(int i, String archangelName, String archangelPrayer, String archangelCelebrationDate, String archangelPower) {
+        for(int v = 1; v < i + 1; v++) {
+            while(archangelName.equals(archangels[v - 1].getName()) || archangelPower.equals(archangels[v - 1].getPower())) {
+                System.out.println("Archangels cannot have the same name or power");
+                System.out.println("Write the name");
+                archangelName = input2.nextLine().toUpperCase();
+                archangelName = endComprobation(archangelName);
+                System.out.println("Write the power");
+                archangelPower = input2.nextLine().toUpperCase();
+                v = 1;
+            }
+        }
+        createArchangel(archangelName, archangelPrayer, archangelCelebrationDate, archangelPower);
+    }
+    public int countArchangels() {
+        return archangels.length;
+    }
+    public int searchByName(String archangelName) {
+        int position = -1;
+        for(int i = 0; i < archangels.length; i++) {
+            if(archangels[i].getName().equals(archangelName)) {
+                position = i;
+                i = archangels.length + 1;
+            }
+        }
+        return position;
+    }
 }

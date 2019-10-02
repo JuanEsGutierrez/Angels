@@ -1,8 +1,5 @@
 package model;
 public class Archangel {
-    //Constants
-    public static final String END = "el";
-    
     //Attributes
     private String name;
     private String prayer;
