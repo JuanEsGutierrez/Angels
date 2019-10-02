@@ -40,6 +40,14 @@ public class Main {
                         System.out.println("You must create the archangels first");
                     }
                     break;
+                case 4:
+                    if(sentinel == true) {
+                        obj.mainSearchByPower();
+                    }
+                    else {
+                        System.out.println("You must create the archangels first");
+                    }
+                    break;
             }
         }
     }
@@ -85,6 +93,17 @@ public class Main {
         int position = legion.searchByName(name);
         if(position == -1) {
             System.out.println("None of the archangels has " + name + " as a name");
+        }
+        else {
+            giveArchangelInformation(position);
+        }
+    }
+    public void mainSearchByPower() {
+        System.out.println("Write the power of the archangel");
+        String power = input2.nextLine().toUpperCase();
+        int position = legion.searchByPower(power);
+        if(position == -1) {
+            System.out.println("None of the archangels has " + power + " as a power");
         }
         else {
             giveArchangelInformation(position);

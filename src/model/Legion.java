@@ -73,4 +73,14 @@ public class Legion {
         }
         return position;
     }
+    public int searchByPower(String archangelPower) {
+        int position = -1;
+        for(int i = 0; i < archangels.length; i++) {
+            if(archangels[i].getPower().equals(archangelPower)) {
+                position = i;
+                i = archangels.length + 1;
+            }
+        }
+        return position;
+    }
 }
