@@ -1,15 +1,14 @@
 package model;
-import java.util.Scanner;
+
 public class Legion {
     //Constants
     private static final String NAME = "Top maximum";
 
     //Attributes
     private String name;
-    private Scanner input2;
 
     //Relationships
-    private static Archangel[] archangels;
+    private Archangel[] archangels;
 
     //Methods
     public Legion(int length) {
@@ -31,34 +30,22 @@ public class Legion {
             }
         }
     }
-    public String endComprobation(String pName) {
-        input2 = new Scanner(System.in);
-        int nameLength = pName.length();
-        String end = Character.toString(pName.charAt(nameLength - 2)) + Character.toString(pName.charAt(nameLength - 1));
-        end = end.toLowerCase();
-        while(!end.equals("el")) {
-            System.out.println("The name must end with el");
-            System.out.println("Write the name");
-            pName = input2.nextLine().toUpperCase();
-            nameLength = pName.length();
-            end = Character.toString(pName.charAt(nameLength - 2)) + Character.toString(pName.charAt(nameLength - 1));
-            end = end.toLowerCase();
+    public boolean endComprobation(String end) {
+        boolean booleanEnd = true;
+        if(!end.equals("el")) {
+            booleanEnd = false;
         }
-        return pName;
+        return booleanEnd;
     }
-    public void equalComprobation(int i, String archangelName, String archangelPrayer, String archangelCelebrationDate, String archangelPower) {
+    public boolean equalComprobation(int i, String archangelName, String archangelPower) {
+        boolean booleanEqual = true;
         for(int v = 1; v < i + 1; v++) {
-            while(archangelName.equals(archangels[v - 1].getName()) || archangelPower.equals(archangels[v - 1].getPower())) {
-                System.out.println("Archangels cannot have the same name or power");
-                System.out.println("Write the name");
-                archangelName = input2.nextLine().toUpperCase();
-                archangelName = endComprobation(archangelName);
-                System.out.println("Write the power");
-                archangelPower = input2.nextLine().toUpperCase();
+            if(archangelName.equals(archangels[v - 1].getName()) || archangelPower.equals(archangels[v - 1].getPower())) {
+                booleanEqual = false;
                 v = 1;
             }
         }
-        createArchangel(archangelName, archangelPrayer, archangelCelebrationDate, archangelPower);
+        return booleanEqual;
     }
     public int countArchangels() {
         return archangels.length;
@@ -82,5 +69,26 @@ public class Legion {
             }
         }
         return position;
+    }
+    public String[] celebrationsByMonth(String inputMonth) {
+        String[] parts;
+        String month = "";
+        String[] outputs = new String[archangels.length];
+        for(int i = 0; i < archangels.length; i++) {
+            parts = archangels[i].getCelebrationDate().split("/");
+            month = parts[1];
+            if(inputMonth.equals(month)) {
+                outputs[i] = "Name: " + archangels[i].getName() + ", celebration day: " + parts[0] + ", candle color: " + archangels[i].getCandle().getColor() + ", candle essence: " + archangels[i].getCandle().getEssence();
+            }
+        }
+        return outputs;
+    }
+    public String allCelebrations() {
+        String output = "";
+        output += archangels[0].getName() + ": " + archangels[0].getCelebrationDate();
+        for(int i = 1; i < archangels.length; i++) {
+            output += ", " + archangels[i].getName() + ": " + archangels[i].getCelebrationDate();
+        }
+        return output;
     }
 }

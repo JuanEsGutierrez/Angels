@@ -1,4 +1,5 @@
 package model;
+
 public class Archangel {
     //Attributes
     private String name;
@@ -15,7 +16,6 @@ public class Archangel {
         this.prayer = prayer;
         this.celebrationDate = celebrationDate;
         this.power = power;
-        
     }
     public String getName() {
         return name;
@@ -40,5 +40,11 @@ public class Archangel {
     }
     public void setPower(String power) {
         this.power = power;
+    }
+    public Candle getCandle() {
+        return candle;
+    }
+    public void createCandle(String candleColor, double candleSize, String candleEssence, String candleIlluminance) {
+        candle = new Candle(candleColor, candleSize, candleEssence, candleIlluminance);
     }
 }

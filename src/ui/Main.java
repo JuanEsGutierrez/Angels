@@ -7,7 +7,6 @@ public class Main {
     private Scanner input2;
     private Legion legion;
     
-
     public static void main(String[] args) {
         Main obj = new Main();
         boolean x = true;
@@ -48,6 +47,28 @@ public class Main {
                         System.out.println("You must create the archangels first");
                     }
                     break;
+                case 5:
+                    if(sentinel == true) {
+                        obj.mainCelebrationsByMonth();
+                    }
+                    else {
+                        System.out.println("You must create the archangels first");
+                    }
+                    break;
+                case 6:
+                    if(sentinel == true) {
+                        System.out.println(obj.legion.allCelebrations());
+                    }
+                    else {
+                        System.out.println("You must create the archangels first");
+                    }
+                    break;
+                case 7:
+                    x = false;
+                    break;
+                default:
+                    System.out.println("Type a valid option");
+                    break;
             }
         }
     }
@@ -58,26 +79,68 @@ public class Main {
     public void createArchangel(int length) {
         System.out.println("Write the name");
         String archangelName = input2.nextLine().toUpperCase();
-        archangelName = legion.endComprobation(archangelName);
+        archangelName = mainEndComprobation(archangelName);
         System.out.println("Write the prayer");
-        String archangelPrayer =input2.nextLine().toUpperCase();
+        String archangelPrayer = input2.nextLine().toUpperCase();
         System.out.println("Write the celebration date in the format day/month. Example: 18/october");
         String archangelCelebrationDate = input2.nextLine().toUpperCase();
         System.out.println("Write the power");
         String archangelPower = input2.nextLine().toUpperCase();
         legion.createArchangel(archangelName, archangelPrayer, archangelCelebrationDate, archangelPower);
+        mainCreateCandle(0);
         for(int i = 1; i < length; i++) {
             System.out.println("Write the name");
             archangelName = input2.nextLine().toUpperCase();
-            archangelName = legion.endComprobation(archangelName);
+            archangelName = mainEndComprobation(archangelName);
             System.out.println("Write the prayer");
-            archangelPrayer =input2.nextLine().toUpperCase();
+            archangelPrayer = input2.nextLine().toUpperCase();
             System.out.println("Write the celebration date in the format day/month. Example: 18/october");
             archangelCelebrationDate = input2.nextLine().toUpperCase();
             System.out.println("Write the power");
             archangelPower = input2.nextLine().toUpperCase();
-            legion.equalComprobation(i, archangelName, archangelPrayer, archangelCelebrationDate, archangelPower);
+            mainEqualComprobation(i, archangelName, archangelPrayer, archangelCelebrationDate, archangelPower);
+            mainCreateCandle(i);
         }
+    }
+    public void mainCreateCandle(int i) {
+        System.out.println("Write the color of the candle");
+        String candleColor = input2.nextLine().toUpperCase();
+        System.out.println("Write the size of the candle in cm");
+        double candleSize = Double.parseDouble(input2.nextLine());
+        System.out.println("Write the essence of the candle");
+        String candleEssence = input2.nextLine().toUpperCase();
+        System.out.println("Write low, medium or high for the illuminance level");
+        String candleIlluminance = input2.nextLine().toUpperCase();
+        legion.getArchangel(i).createCandle(candleColor, candleSize, candleEssence, candleIlluminance);
+    }
+    public String mainEndComprobation(String pName) {
+        int nameLength = pName.length();
+        String end = Character.toString(pName.charAt(nameLength - 2)) + Character.toString(pName.charAt(nameLength - 1));
+        end = end.toLowerCase();
+        boolean booleanEnd = legion.endComprobation(end);
+        while(!booleanEnd) {
+            System.out.println("The name must end with el");
+            System.out.println("Write the name");
+            pName = input2.nextLine().toUpperCase();
+            nameLength = pName.length();
+            end = Character.toString(pName.charAt(nameLength - 2)) + Character.toString(pName.charAt(nameLength - 1));
+            end = end.toLowerCase();
+            booleanEnd = legion.endComprobation(end);
+        }
+        return pName;
+    }
+    public void mainEqualComprobation(int i, String archangelName, String archangelPrayer, String archangelCelebrationDate, String archangelPower) {
+        boolean booleanEqual = legion.equalComprobation(i, archangelName, archangelPower);
+        while(!booleanEqual) {
+            System.out.println("Archangels cannot have the same name or power");
+            System.out.println("Write the name");
+            archangelName = input2.nextLine().toUpperCase();
+            archangelName = mainEndComprobation(archangelName);
+            System.out.println("Write the power");
+            archangelPower = input2.nextLine().toUpperCase();
+            booleanEqual = legion.equalComprobation(i, archangelName, archangelPower);
+        }
+        legion.createArchangel(archangelName, archangelPrayer, archangelCelebrationDate, archangelPower);
     }
     public void countArchangelsComprobation() {
         if(legion.countArchangels() == 1) {
@@ -114,5 +177,15 @@ public class Main {
         System.out.println("Prayer: " + legion.getArchangel(position).getPrayer());
         System.out.println("Celebration date: " + legion.getArchangel(position).getCelebrationDate());
         System.out.println("Power: " + legion.getArchangel(position).getPower());
+    }
+    public void mainCelebrationsByMonth() {
+        System.out.println("Write the month");
+        String inputMonth = input2.nextLine().toUpperCase();
+        String[] outputs = legion.celebrationsByMonth(inputMonth);
+        for(int i = 0; i < outputs.length; i++) {
+            if(outputs[i] != null) {
+                System.out.println(outputs[i]);
+            }
+        }
     }
 }

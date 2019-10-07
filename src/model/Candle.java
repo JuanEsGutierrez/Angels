@@ -1,13 +1,14 @@
 package model;
+
 public class Candle {
     //Attributes
     private String color;
     private double size;
     private String essence;
-    private double illuminance;
+    private String illuminance;
 
     //Methods
-    public Candle(String color, double size, String essence, double illuminance) {
+    public Candle(String color, double size, String essence, String illuminance) {
         this.color = color;
         this.size = size;
         this.essence = essence;
@@ -31,10 +32,10 @@ public class Candle {
     public void setEssence(String essence) {
         this.essence = essence;
     }
-    public double getIlluminance() {
+    public String getIlluminance() {
         return illuminance;
     }
-    public void setIlluminance(double illuminance) {
+    public void setIlluminance(String illuminance) {
         this.illuminance = illuminance;
     }
 }
